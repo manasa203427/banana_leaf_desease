@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Banana Disease Detection</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+/* ===== Background ===== */
+body{
+    background: url("{% static 'images/banana_bg.jpg' %}") no-repeat center center/cover;
+    height:100vh;
+}
+
+/* ===== Header ===== */
+#header{
+    background: rgba(0,0,0,0.75);
+    padding:20px 0;
+    text-align:center;
+}
+
+#header h1{
+    color:white;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+/* ===== Navigation Menu ===== */
+#menu{
+    margin-top:15px;
+}
+
+#menu ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+#menu ul li a{
+    text-decoration:none;
+    color:white;
+    font-size:16px;
+    padding:8px 18px;
+    border-radius:25px;
+    transition:0.3s;
+}
+
+#menu ul li a:hover{
+    background:#4CAF50;
+}
+
+/* ===== Main Content Card ===== */
+#wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:70vh;
+}
+
+#page{
+    background:rgba(255,255,255,0.92);
+    padding:40px;
+    width:60%;
+    border-radius:15px;
+    box-shadow:0px 8px 25px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+#page h2{
+    color:#2e7d32;
+    margin-bottom:15px;
+}
+
+#page p{
+    color:#333;
+    font-size:16px;
+    line-height:1.6;
+}
+
+/* ===== Button Style ===== */
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#4CAF50;
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#2e7d32;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== Header ===== -->
+<div id="header">
+    <h1>Banana Leaf Disease Detection using ML & Computer Vision</h1>
+
+    <div id="menu">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'UserLogin' %}">User Login</a></li>
+            <li><a href="{% url 'Register' %}">Registration</a></li>
+            <li><a href="ForgotPassword">Forgot Password</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ===== Main Section ===== -->
+<div id="wrapper">
+    <div id="page">
+        <h2>Banana Disease Detection System</h2>
+        <p>
+            This intelligent system uses Machine Learning and Computer Vision
+            techniques to automatically detect diseases in banana leaves.
+            Farmers and researchers can upload leaf images to identify
+            infections early and improve crop productivity.
+        </p>
+
+        <a href="{% url 'UserLogin' %}" class="btn">Get Started</a>
+    </div>
+</div>
+
+</body>
+</html>

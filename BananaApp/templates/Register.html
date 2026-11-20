@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Banana Disease Detection - Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script>
+function validateEmail(value){
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)){
+        return true;
+    }
+    alert("Please enter valid email");
+    return false;
+}
+
+function validate(formObj)
+{
+    if(formObj.t1.value.length==0){
+        alert("Please Enter Username");
+        formObj.t1.focus(); return false;
+    }
+
+    if(formObj.t2.value.length==0){
+        alert("Please Enter Password");
+        formObj.t2.focus(); return false;
+    }
+
+    if(formObj.t3.value.length==0){
+        alert("Please Enter Phone Number");
+        formObj.t3.focus(); return false;
+    }
+
+    if(!formObj.t3.value.match(/^\d{10}$/)){
+        alert("Phone number must be 10 digits");
+        formObj.t3.focus(); return false;
+    }
+
+    if(formObj.t4.value.length==0){
+        alert("Please Enter Email");
+        formObj.t4.focus(); return false;
+    }
+
+    if(!validateEmail(formObj.t4.value)){
+        formObj.t4.focus(); return false;
+    }
+
+    if(formObj.t5.value.length==0){
+        alert("Please Enter Address");
+        formObj.t5.focus(); return false;
+    }
+
+    return true;
+}
+</script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+/* ===== Banana Background ===== */
+body{
+    background:url("{% static 'images/banana_bg.jpg' %}") no-repeat center center/cover;
+}
+
+/* ===== Header ===== */
+#header{
+    background:rgba(0,0,0,0.75);
+    padding:18px;
+    text-align:center;
+    color:white;
+}
+
+#menu ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-top:8px;
+}
+
+#menu ul li a{
+    text-decoration:none;
+    color:white;
+    padding:6px 16px;
+    border-radius:25px;
+    transition:0.3s;
+    font-size:15px;
+}
+
+#menu ul li a:hover{
+    background:#4CAF50;
+}
+
+/* ===== Wrapper ===== */
+#wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:70vh;
+    padding:20px 0;
+}
+
+/* ===== Compact Card ===== */
+#page{
+    background:rgba(255,255,255,0.95);
+    padding:25px 30px;
+    width:380px;
+    border-radius:15px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.25);
+    text-align:center;
+}
+
+/* ===== Heading ===== */
+h2{
+    color:#2e7d32;
+    margin-bottom:12px;
+    font-weight:600;
+}
+
+/* ===== Inputs ===== */
+input[type=text],
+input[type=password]{
+    width:100%;
+    padding:10px;
+    margin:6px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+/* ===== Button ===== */
+input[type=submit]{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:25px;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+input[type=submit]:hover{
+    background:#2e7d32;
+}
+
+.message{
+    color:blue;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== Header ===== -->
+<div id="header">
+<h1>Banana Leaf Disease Detection using ML & Computer Vision</h1>
+
+<div id="menu">
+<ul>
+<li><a href="{% url 'index' %}">Home</a></li>
+<li><a href="{% url 'UserLogin' %}">User Login</a></li>
+<li><a href="{% url 'Register' %}">Register</a></li>
+</ul>
+</div>
+</div>
+
+<!-- ===== Registration Form ===== -->
+<div id="wrapper">
+<div id="page">
+
+<form name="f1" method="post"
+      action="{% url 'RegisterAction' %}"
+      onsubmit="return validate(this)">
+
+{% csrf_token %}
+
+<h2>Create Account</h2>
+
+<div class="message">
+{{ data|safe }}
+</div>
+
+<input type="text" name="t1" placeholder="Username">
+<input type="password" name="t2" placeholder="Password">
+<input type="text" name="t3" placeholder="Contact Number">
+<input type="text" name="t4" placeholder="Email ID">
+<input type="text" name="t5" placeholder="Address">
+
+<input type="submit" value="Register">
+
+</form>
+
+</div>
+</div>
+
+</body>
+</html>

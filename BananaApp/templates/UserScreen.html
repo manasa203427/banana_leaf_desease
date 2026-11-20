@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Banana Disease Detection Result</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== BACKGROUND ===== */
+body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url("{% static 'images/banana_bg.jpg' %}");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* ===== HEADER ===== */
+.header{
+    text-align:center;
+    padding:18px;
+    font-size:24px;
+    font-weight:600;
+    background:rgba(0,0,0,0.75);
+}
+
+/* ===== MENU ===== */
+.menu{
+    text-align:center;
+    padding:12px;
+    background:rgba(0,0,0,0.85);
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    margin:0 18px;
+    font-size:15px;
+    padding:6px 14px;
+    border-radius:20px;
+    transition:0.3s;
+}
+
+.menu a:hover{
+    background:#4CAF50;
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.content{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:75vh;
+}
+
+/* ===== RESULT CARD ===== */
+.card{
+    background:rgba(255,255,255,0.95);
+    color:#222;
+    width:650px;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* IMAGE */
+.pred-img{
+    margin-top:15px;
+    max-width:520px;
+    width:95%;
+    border-radius:10px;
+    box-shadow:0 5px 18px rgba(0,0,0,0.3);
+}
+
+/* RESULT TEXT */
+.result{
+    margin-top:20px;
+    font-size:16px;
+    line-height:1.7;
+}
+
+.title{
+    font-weight:600;
+    font-size:19px;
+}
+
+/* BADGE */
+.badge{
+    padding:6px 14px;
+    border-radius:20px;
+    color:white;
+    font-weight:500;
+}
+
+.disease{
+    background:#e53935;
+}
+
+.healthy{
+    background:#2e7d32;
+}
+
+/* SECTIONS */
+.treatment{
+    color:#1565c0;
+    margin-top:15px;
+}
+
+.precaution{
+    color:#ef6c00;
+    margin-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+Banana Leaf Disease Detection using Machine Learning & Computer Vision
+</div>
+
+<!-- MENU -->
+<div class="menu">
+<a href="{% url 'LoadDataset' %}">Load Dataset</a>
+<a href="{% url 'TrainModel' %}">Train Model</a>
+<a href="{% url 'Predict' %}">Prediction</a>
+<a href="{% url 'index' %}">Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<div class="card">
+
+<!-- Extra Messages -->
+<div>
+{{ data|safe }}
+</div>
+
+<!-- Uploaded Image -->
+<img class="pred-img"
+src="data:image/png;base64, {{ img }}">
+
+{% if prediction %}
+<div class="result">
+
+<p class="title">
+Disease Detected :
+<span class="badge {% if prediction == 'Healthy' %}healthy{% else %}disease{% endif %}">
+{{ prediction }}
+</span>
+</p>
+
+<div class="treatment">
+<p class="title">Recommended Treatment / Pesticides</p>
+<p>{{ treatment }}</p>
+</div>
+
+<div class="precaution">
+<p class="title">Precautions to Follow</p>
+<p>{{ precautions }}</p>
+</div>
+
+</div>
+{% endif %}
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Banana Disease Prediction</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script>
+function validate(formObj)
+{
+    if(formObj.t1.value.length==0)
+    {
+        alert("Please upload test image");
+        formObj.t1.focus();
+        return false;
+    }
+    return true;
+}
+</script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+/* ===== Background ===== */
+body{
+    background:url("{% static 'images/banana_bg.jpg' %}") no-repeat center center/cover;
+}
+
+/* ===== Header ===== */
+#header{
+    background:rgba(0,0,0,0.8);
+    padding:18px;
+    text-align:center;
+    color:white;
+}
+
+#menu ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-top:10px;
+}
+
+#menu ul li{
+    list-style:none;
+}
+
+#menu ul li a{
+    text-decoration:none;
+    color:white;
+    padding:7px 16px;
+    border-radius:25px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+#menu ul li a:hover{
+    background:#4CAF50;
+}
+
+/* ===== Wrapper ===== */
+#wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:75vh;
+}
+
+/* ===== Upload Card ===== */
+#page{
+    background:rgba(255,255,255,0.96);
+    padding:28px;
+    width:420px;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    text-align:center;
+}
+
+h2{
+    color:#2e7d32;
+    margin-bottom:15px;
+}
+
+/* ===== File Input ===== */
+input[type=file]{
+    width:100%;
+    padding:10px;
+    margin:12px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    background:#f9f9f9;
+}
+
+/* ===== Button ===== */
+input[type=submit]{
+    width:100%;
+    padding:10px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:25px;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+input[type=submit]:hover{
+    background:#2e7d32;
+}
+
+.message{
+    color:blue;
+    margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== Header ===== -->
+<div id="header">
+<h1>Banana Leaf Disease Detection using ML & Computer Vision</h1>
+
+<div id="menu">
+<ul>
+<li><a href="{% url 'LoadDataset' %}">Load Dataset</a></li>
+<li><a href="{% url 'TrainModel' %}">Train Model</a></li>
+<li><a href="{% url 'Predict' %}">Predict Disease</a></li>
+<li><a href="{% url 'index' %}">Logout</a></li>
+</ul>
+</div>
+</div>
+
+<!-- ===== Prediction Section ===== -->
+<div id="wrapper">
+<div id="page">
+
+<h2>Banana Disease Prediction</h2>
+
+<div class="message">
+{{ data|safe }}
+</div>
+
+<form name="f1"
+      method="post"
+      action="{% url 'PredictAction' %}"
+      enctype="multipart/form-data"
+      onsubmit="return validate(this)">
+
+{% csrf_token %}
+
+<input type="file" name="t1">
+
+<input type="submit" value="Predict Disease">
+
+</form>
+
+</div>
+</div>
+
+</body>
+</html>
